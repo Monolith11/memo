@@ -2,25 +2,30 @@ a();
 
 function a() {
 	const a = 2000000000; //time
-//	const infinitycd = 167; //171 169 167
-//	const memorizecd = 6.84; //8.55 7.695 6.84
-	const infinitycd = 171; //171 169 167
-	const memorizecd = 8.55; //8.55 7.695 6.84
+//	const infinitycd = 1670000; //171 169 167
+//	const memorizecd = 6840; //8.55 7.695 6.84
+	const infinitycd = 1710000; //171 169 167
+	const memorizecd = 8550; //8.55 7.695 6.84
 	var remaininginfinitycd = 0;
 	var remainingmemorizecd = 0;
 //	const buffduration = 1 + 1.74;
 	const buffduration = 1 + 1.5;
-	const infinityduration = (40 + 1) * buffduration;
+	const infinityduration = (40 + 1) * 1000 * buffduration;
 	var infinitytime = 0;
 //	const infinitychance = 25 / 226; //FP226 IL186 BS 246
 	const infinitychance = 25 / 186; //FP226 IL186 BS 246
-//	const refreshrate = 5;
-	const refreshrate = 3;
+	const refreshrate = 5500;
 	var finaldamage = [];
 	const basefinaldamage = 171;
 	const finaldamagegrowth = 3;
 	var currentfinaldamage = 100;
 	var averagefinaldamage = 0;
+
+	const infinityDelay = 600;
+	const unstableDelay = 870 + 890;
+	var characterDelay = 0;
+	var characterIsUsingInfinity = 0;
+
 	var i;
 
 	var unstablecount = 0;
@@ -37,24 +42,29 @@ function a() {
 		if(currentfinaldamage == 100){
 			if(remaininginfinitycd <= 0){
 				remaininginfinitycd = infinitycd;
-				currentfinaldamage = basefinaldamage;
+				characterDelay = infinityDelay;
+				characterIsUsingInfinity = 1;
 				infinitytime = 0;
 			}
 		}
 
-		//if(currentfinaldamage == 100){ //only while no infinity
-		//if(currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance){ //try to roll infinity before infinity ends
-		if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd > 0){ //try to roll infinity before infinity ends, but only while infinity is on cd
-		//if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd <= memorizecd / infinitychance){ //try to roll infinity before infinity ends, but only while infinity is on cd, including chance to roll infinity
-		//if(1){ //always use
-		//if(remaininginfinitycd > 0){ //always use, but only while infinity is on cd
-		//if(remaininginfinitycd <= memorizecd / infinitychance){ //always use, but only while infinity is on cd, including chance to roll infinity
-			if(remainingmemorizecd <= 0){
-				remainingmemorizecd = memorizecd;
-				unstablecount++;
-				if(Math.random() <= infinitychance){
-					currentfinaldamage = basefinaldamage;
-					infinitytime = 0;
+		if(characterDelay <= 0) {
+			//if(currentfinaldamage == 100){ //only while no infinity
+			//if(currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance){ //try to roll infinity before infinity ends
+			if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd > memorizecd / infinitychance){ //try to roll infinity before infinity ends, but only while infinity is on cd
+			//if((currentfinaldamage == 100 && remaininginfinitycd > 0) || (infinityduration - infinitytime <= memorizecd / infinitychance && remaininginfinitycd > memorizecd / infinitychance)){ //try to roll infinity before infinity ends, but only while infinity is on cd
+			//if(1){ //always use
+			//if(remaininginfinitycd > 0){ //always use, but only while infinity is on cd
+			//if(remaininginfinitycd <= memorizecd / infinitychance){ //always use, but only while infinity is on cd, including chance to roll infinity
+				if(remainingmemorizecd <= 0){
+					remainingmemorizecd = memorizecd;
+					characterDelay = unstableDelay;
+					unstablecount++;
+					if(Math.random() <= infinitychance){
+						characterDelay += infinityDelay;
+						characterIsUsingInfinity = 1;
+						infinitytime = 0;
+					}
 				}
 			}
 		}
@@ -65,7 +75,12 @@ function a() {
 			}
 		}
 
+		if(characterDelay == 0 && characterIsUsingInfinity == 1) {
+			currentfinaldamage = basefinaldamage;
+			characterIsUsingInfinity = 0;
+		}
 		finaldamage[currentfinaldamage]++;
+		characterDelay--;
 		infinitytime++;
 		remaininginfinitycd--;
 		remainingmemorizecd--;
