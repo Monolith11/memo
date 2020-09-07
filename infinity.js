@@ -22,7 +22,8 @@ function a() {
 	var averagefinaldamage = 0;
 
 	const infinityDelay = 600;
-	const unstableDelay = 870 + 890;
+	const unstableDelay = 870;
+	const unstableDelay2 = 746;
 	var characterDelay = 0;
 	var characterIsUsingInfinity = 0;
 
@@ -64,6 +65,8 @@ function a() {
 						characterDelay += infinityDelay;
 						characterIsUsingInfinity = 1;
 						infinitytime = 0;
+					}else{
+						characterDelay += unstableDelay2;
 					}
 				}
 			}
