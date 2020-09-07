@@ -40,16 +40,16 @@ function a() {
 			currentfinaldamage = 100;
 		}
 
-		if(currentfinaldamage == 100){
-			if(remaininginfinitycd <= 0){
-				remaininginfinitycd = infinitycd;
-				characterDelay = infinityDelay;
-				characterIsUsingInfinity = 1;
-				infinitytime = 0;
-			}
-		}
-
 		if(characterDelay <= 0) {
+			if(currentfinaldamage == 100){
+				if(remaininginfinitycd <= 0){
+					remaininginfinitycd = infinitycd;
+					characterDelay = infinityDelay;
+					characterIsUsingInfinity = 1;
+					infinitytime = 0;
+				}
+			}
+
 			//if(currentfinaldamage == 100){ //only while no infinity
 			//if(currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance){ //try to roll infinity before infinity ends
 			if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd > memorizecd / infinitychance){ //try to roll infinity before infinity ends, but only while infinity is on cd
