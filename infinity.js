@@ -50,23 +50,25 @@ function a() {
 				}
 			}
 
-			//if(currentfinaldamage == 100){ //only while no infinity
-			//if(currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance){ //try to roll infinity before infinity ends
-			if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd > memorizecd / infinitychance){ //try to roll infinity before infinity ends, but only while infinity is on cd
-			//if((currentfinaldamage == 100 && remaininginfinitycd > 0) || (infinityduration - infinitytime <= memorizecd / infinitychance && remaininginfinitycd > memorizecd / infinitychance)){ //try to roll infinity before infinity ends, but only while infinity is on cd
-			//if(1){ //always use
-			//if(remaininginfinitycd > 0){ //always use, but only while infinity is on cd
-			//if(remaininginfinitycd <= memorizecd / infinitychance){ //always use, but only while infinity is on cd, including chance to roll infinity
-				if(remainingmemorizecd <= 0){
-					remainingmemorizecd = memorizecd;
-					characterDelay = unstableDelay;
-					unstablecount++;
-					if(Math.random() <= infinitychance){
-						characterDelay += infinityDelay;
-						characterIsUsingInfinity = 1;
-						infinitytime = 0;
-					}else{
-						characterDelay += unstableDelay2;
+			if(characterIsUsingInfinity == 0){
+				//if(currentfinaldamage == 100){ //only while no infinity
+				//if(currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance){ //try to roll infinity before infinity ends
+				if((currentfinaldamage == 100 || infinityduration - infinitytime <= memorizecd / infinitychance) && remaininginfinitycd > memorizecd / infinitychance){ //try to roll infinity before infinity ends, but only while infinity is on cd
+				//if((currentfinaldamage == 100 && remaininginfinitycd > 0) || (infinityduration - infinitytime <= memorizecd / infinitychance && remaininginfinitycd > memorizecd / infinitychance)){ //try to roll infinity before infinity ends, but only while infinity is on cd
+				//if(1){ //always use
+				//if(remaininginfinitycd > 0){ //always use, but only while infinity is on cd
+				//if(remaininginfinitycd <= memorizecd / infinitychance){ //always use, but only while infinity is on cd, including chance to roll infinity
+					if(remainingmemorizecd <= 0){
+						remainingmemorizecd = memorizecd;
+						characterDelay = unstableDelay;
+						unstablecount++;
+						if(Math.random() <= infinitychance){
+							characterDelay += infinityDelay;
+							characterIsUsingInfinity = 1;
+							infinitytime = 0;
+						}else{
+							characterDelay += unstableDelay2;
+						}
 					}
 				}
 			}
