@@ -2,9 +2,9 @@ a();
 
 function a() {
 	const a = 2000000000; //time
-//	const infinitycd = 1670000; //171 169 167
+//	const infinitycd = 167000; //171 169 167
 //	const memorizecd = 6840; //8.55 7.695 6.84
-	const infinitycd = 1710000; //171 169 167
+	const infinitycd = 171000; //171 169 167
 	const memorizecd = 8550; //8.55 7.695 6.84
 	var remaininginfinitycd = 0;
 	var remainingmemorizecd = 0;
